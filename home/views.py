@@ -36,6 +36,6 @@ def register_view(request):
         return JsonResponse({"message": "User created successfully"})
     return JsonResponse({"message": "it's user created view"})
 
-def hello(request):
-    return HttpResponse("<H1>Hello, world!</H1>")
+def index(request):
+    return HttpResponse("Hello from the travel app backend!")
 
