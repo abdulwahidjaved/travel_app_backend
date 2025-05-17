@@ -4,6 +4,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 
+from home.models import UserDetail
+
 @csrf_exempt
 def login_view(request):
     if request.method == "POST":
@@ -38,4 +40,19 @@ def register_view(request):
 
 def index(request):
     return HttpResponse("Hello from the travel app backend!")
+
+
+@csrf_exempt
+def home_view(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        name = data.get("name")
+        country = data.get("country")
+        destination = data.get("destination")
+        details = UserDetail(name=name, select_country=country, select_destination_type=destination)
+        details.save()
+        print(f"{name}-{country}-{destination}")
+        return JsonResponse({"message": "Success"})
+    return JsonResponse({"message":"This is details page"})
+
 
